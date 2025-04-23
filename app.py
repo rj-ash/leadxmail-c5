@@ -1,11 +1,7 @@
-from fastapi import FastAPI, HTTPException, Request, Security, Depends
+from fastapi import FastAPI, HTTPException, Request
 from typing import List, Dict, Union
 from email_sender import send_emails
 import uvicorn
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
 
 app = FastAPI(
     title="Email Sender API",
@@ -13,11 +9,8 @@ app = FastAPI(
     version="1.0.0"
 )
 
-
 @app.post("/send-emails", response_model=dict)
-async def send_emails_endpoint(
-    request: Request
-):
+async def send_emails_endpoint(request: Request):
     """
     Send emails to multiple recipients.
     
@@ -56,5 +49,5 @@ async def health_check():
     """Health check endpoint"""
     return {"status": "healthy"}
 
-# if __name__ == "__main__":
-#     uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
+if __name__ == "__main__":
+    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
