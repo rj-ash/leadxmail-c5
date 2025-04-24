@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException, Request
 from typing import List, Dict, Union
+from fastapi.middleware.cors import CORSMiddleware 
 from email_sender import send_emails
 import uvicorn
 
@@ -7,6 +8,14 @@ app = FastAPI(
     title="Email Sender API",
     description="API to send emails using Gmail SMTP",
     version="1.0.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8080"],  # Allow your frontend origin
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
 )
 
 @app.post("/send-emails", response_model=dict)
@@ -49,5 +58,5 @@ async def health_check():
     """Health check endpoint"""
     return {"status": "healthy"}
 
-if __name__ == "__main__":
-    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
+# if __name__ == "__main__":
+#     uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
