@@ -12,7 +12,10 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins = [
+    "http://localhost:8080",
+    "https://flow-forge-campaigns.lovable.app"  
+],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
